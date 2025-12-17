@@ -112,51 +112,49 @@ Raw Data → Preprocessing → Feature Engineering → Model Training → Infere
 
 ## 5. Структура репозитория
 
-(Фактическая структура может отличаться, это ориентир.)
-
 ├── data/
-│   ├── raw/                   # Оригинальные данные Kaggle
-│   └── processed/             # Обработанные фичи (train/test_features_cleaned и др.)
+│   ├── raw/                    # Исходные данные Kaggle
+│   └── processed/              # Обработанные фичи (train/test_features_cleaned и др.)
 │
-├── notebooks/                 # Jupyter-ноутбуки
+├── notebooks/                  # Jupyter-ноутбуки
 │   ├── 01_comprehensive_eda_and_validation.ipynb
 │   └── 02_model_training.ipynb
 │
 ├── src/
 │   ├── data/
-│   │   ├── load_data.py       # Загрузка raw-данных
-│   │   └── save_data.py       # Сохранение dataframes
+│   │   ├── load_data.py        # Загрузка raw-данных
+│   │   └── save_data.py        # Сохранение DataFrame-ов
 │   │
 │   ├── features/
-│   │   ├── build_features.py  # Генерация временных фичей, лагов, rolling
-│   │   └── validation.py      # Валидация фичей (корреляции, leakage-check)
+│   │   ├── build_features.py   # Генерация временных фичей, лагов, rolling
+│   │   └── validation.py       # Валидация фичей (корреляции, leakage-check)
 │   │
 │   ├── models/
-│   │   ├── train.py           # ARIMA baseline и вспомогательные модели
-│   │   └── metrics.py         # SMAPE, RMSE, MAE, R²
+│   │   ├── train.py            # ARIMA baseline и вспомогательные модели
+│   │   └── metrics.py          # SMAPE, RMSE, MAE, R²
 │   │
-│   └── app/                   # Продакшен-инференс (FastAPI)
-│       ├── main.py            # FastAPI-приложение (/predict, /health)
-│       ├── models.py          # Pydantic-схемы запросов/ответов
-│       ├── predictor.py       # Класс SalesPredictor (LightGBM + lookup по фичам)
-│       └── config.py          # Пути к моделям/данным, конфиг проекта
+│   └── app/                    # Продакшен-инференс (FastAPI)
+│       ├── main.py             # FastAPI-приложение (/predict, /health)
+│       ├── models.py           # Pydantic-схемы запросов/ответов
+│       ├── predictor.py        # Класс SalesPredictor (LightGBM + lookup по фичам)
+│       └── config.py           # Пути к моделям/данным, конфиг проекта
 │
 ├── artifacts/
-│   ├── models/                # Сохранённые модели и метаданные
-│   └── submissions/           # Kaggle submissions
+│   ├── models/                 # Сохранённые модели и метаданные
+│   └── submissions/            # Kaggle submissions
 │
 ├── ui/
-│   ├── page_forecast.py       # Страница Streamlit «Прогноз»
-│   ├── page_about.py          # Страница «О модели»
-│   ├── api_client.py          # HTTP-клиент к FastAPI
-│   └── state.py               # Работа с st.session_state
+│   ├── page_forecast.py        # Страница Streamlit «Прогноз»
+│   ├── page_about.py           # Страница «О модели»
+│   ├── api_client.py           # HTTP-клиент к FastAPI
+│   └── state.py                # Работа с st.session_state
 │
-├── memory-bank/               # Project brief, context, tech/system patterns, progress
+├── memory-bank/                # Project brief, context, tech/system patterns, progress
 │
-├── streamlit_app.py           # Точка входа для Streamlit
-├── Dockerfile                 # Docker-образ для FastAPI-сервиса
-├── requirements.txt           # Зависимости (ML + FastAPI + Streamlit)
-└── README.md                  # Этот файл---
+├── streamlit_app.py            # Точка входа для Streamlit
+├── Dockerfile                  # Docker-образ для FastAPI-сервиса
+├── requirements.txt            # Зависимости (ML + FastAPI + Streamlit)
+└── README.md                   # Этот файл
 
 ## 6. Как запустить
 
