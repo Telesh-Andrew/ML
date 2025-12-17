@@ -112,6 +112,7 @@ Raw Data → Preprocessing → Feature Engineering → Model Training → Infere
 
 ## 5. Структура репозитория
 
+```
 ├── data/
 │   ├── raw/                    # Исходные данные Kaggle
 │   └── processed/              # Обработанные фичи (train/test_features_cleaned и др.)
@@ -155,6 +156,7 @@ Raw Data → Preprocessing → Feature Engineering → Model Training → Infere
 ├── Dockerfile                  # Docker-образ для FastAPI-сервиса
 ├── requirements.txt            # Зависимости (ML + FastAPI + Streamlit)
 └── README.md                   # Этот файл
+```
 
 ## 6. Как запустить
 
