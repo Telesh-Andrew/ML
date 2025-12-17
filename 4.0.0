@@ -1,0 +1,3 @@
+Requirement already satisfied: lightgbm in c:\users\teles\ml_projects\shop_project\.venv\lib\site-packages (4.6.0)
+Requirement already satisfied: numpy>=1.17.0 in c:\users\teles\ml_projects\shop_project\.venv\lib\site-packages (from lightgbm) (2.3.5)
+Requirement already satisfied: scipy in c:\users\teles\ml_projects\shop_project\.venv\lib\site-packages (from lightgbm) (1.16.3)
