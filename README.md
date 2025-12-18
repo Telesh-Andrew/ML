@@ -66,9 +66,13 @@
 
 Высокоуровневая схема:
 
+```text
 Raw Data → Preprocessing → Feature Engineering → Model Training → Inference (API) → UI → Predictions
    ↓           ↓                  ↓                   ↓                ↓           ↓        ↓
- CSV files   cleaned data    engineered features   saved model      FastAPI     Streamlit  submissionОсновные слои:
+ CSV files   cleaned data    engineered features   saved model      FastAPI     Streamlit  submission
+```
+
+Основные слои:
 
 - **Data Layer**
   - загрузка `train/test/sample_submission`;
@@ -112,51 +116,59 @@ Raw Data → Preprocessing → Feature Engineering → Model Training → Infere
 
 ## 5. Структура репозитория
 
-```
+Фактическая структура (укрупнённо):
+
+```text
 ├── data/
-│   ├── raw/                    # Исходные данные Kaggle
-│   └── processed/              # Обработанные фичи (train/test_features_cleaned и др.)
+│   ├── raw/                       # Исходные данные Kaggle (train/test/sample_submission)
+│   └── processed/                 # Обработанные фичи (train_features*, test_features*)
 │
-├── notebooks/                  # Jupyter-ноутбуки
+├── notebooks/                     # Jupyter-ноутбуки
 │   ├── 01_comprehensive_eda_and_validation.ipynb
 │   └── 02_model_training.ipynb
 │
 ├── src/
 │   ├── data/
-│   │   ├── load_data.py        # Загрузка raw-данных
-│   │   └── save_data.py        # Сохранение DataFrame-ов
+│   │   ├── __init__.py
+│   │   ├── load_data.py           # Загрузка raw-данных
+│   │   ├── save_data.py           # Сохранение/загрузка обработанных данных
+│   │   └── README.md              # Документация data-модуля
 │   │
 │   ├── features/
-│   │   ├── build_features.py   # Генерация временных фичей, лагов, rolling
-│   │   └── validation.py       # Валидация фичей (корреляции, leakage-check)
+│   │   ├── __init__.py
+│   │   ├── build_features.py      # Генерация временных фичей, лагов, rolling и др.
+│   │   ├── validation.py          # Валидация фичей (корреляции, leakage-check)
+│   │   ├── example_usage.py       # Примеры использования feature-пайплайна
+│   │   └── README.md              # Документация feature-модуля
 │   │
 │   ├── models/
-│   │   ├── train.py            # ARIMA baseline и вспомогательные модели
-│   │   └── metrics.py          # SMAPE, RMSE, MAE, R²
+│   │   ├── __init__.py
+│   │   ├── train.py               # Обучение моделей (LightGBM и др.)
+│   │   └── metrics.py             # SMAPE, RMSE, MAE, R²
 │   │
-│   └── app/                    # Продакшен-инференс (FastAPI)
-│       ├── main.py             # FastAPI-приложение (/predict, /health)
-│       ├── models.py           # Pydantic-схемы запросов/ответов
-│       ├── predictor.py        # Класс SalesPredictor (LightGBM + lookup по фичам)
-│       └── config.py           # Пути к моделям/данным, конфиг проекта
+│   └── app/                       # Продакшен-инференс (FastAPI)
+│       ├── __init__.py
+│       ├── main.py                # FastAPI-приложение (/predict, /health)
+│       ├── models.py              # Pydantic-схемы запросов/ответов
+│       ├── predictor.py           # Класс SalesPredictor (LightGBM + lookup по фичам)
+│       └── config.py              # Пути к моделям/данным, конфиг проекта
 │
 ├── artifacts/
-│   ├── models/                 # Сохранённые модели и метаданные
-│   └── submissions/            # Kaggle submissions
+│   ├── models/                    # Сохранённые модели и метаданные
+│   └── submissions/               # Kaggle submissions
 │
 ├── ui/
-│   ├── page_forecast.py        # Страница Streamlit «Прогноз»
-│   ├── page_about.py           # Страница «О модели»
-│   ├── api_client.py           # HTTP-клиент к FastAPI
-│   └── state.py                # Работа с st.session_state
+│   ├── page_forecast.py           # Страница Streamlit «Прогноз»
+│   ├── page_about.py              # Страница «О модели»
+│   ├── api_client.py              # HTTP-клиент к FastAPI
+│   └── state.py                   # Работа с st.session_state
 │
-├── memory-bank/                # Project brief, context, tech/system patterns, progress
+├── memory-bank/                   # Project brief, context, tech/system patterns, progress
 │
-├── streamlit_app.py            # Точка входа для Streamlit
-├── Dockerfile                  # Docker-образ для FastAPI-сервиса
-├── requirements.txt            # Зависимости (ML + FastAPI + Streamlit)
-└── README.md                   # Этот файл
-```
+├── streamlit_app.py               # Точка входа для Streamlit
+├── Dockerfile                     # Docker-образ для FastAPI-сервиса
+├── requirements.txt               # Зависимости (ML + FastAPI + Streamlit)
+└── README.md                      # Этот файл
 
 ## 6. Как запустить
 
